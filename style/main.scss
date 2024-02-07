@@ -1,0 +1,133 @@
+@use "./mixin"as *;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    border:none;
+    outline: none;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.container{
+    width: 100%;
+    @include d-flex(center,center);
+    .content{
+        width: 100%;
+        position:relative;
+        .prev {
+            background-color: transparent;
+            cursor: pointer;
+            z-index: 4;
+            position: absolute;
+            top: 35%;
+            left: 10px;
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            &::after {
+                content: "";
+                transition: 0.3s ease;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-15%,-50%) rotate(45deg) ;
+                width: 30%;
+                height: 30%;
+                border:5px solid white;
+                @include border-color(transparent,transparent ,white ,white )
+            }
+            &:hover{
+                &::after {
+                    @include border-color(transparent,transparent ,red ,red )
+                }
+            }
+        }
+        .next{
+            @extend .prev;  
+            left: calc(100% - 60px);
+            &::after {
+                content: "";
+                transform: translate(-85%,-50%) rotate(45deg);
+                @include border-color(white,white,transparent ,transparent );
+            }
+            &:hover{
+                &::after {
+                    @include border-color(red,red,transparent,transparent)
+                }
+            }
+        }
+        .show{
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background-color: #333;
+                .imgshow{
+                    width: 100%;
+                    opacity: 0;
+                    transition: 1s ease;
+                    z-index: 1;
+                    position: absolute;
+                    @include img_textInShowActive;
+                    
+                }
+                .activeImg{
+                    width: 100%;
+                    transition: 1s ease;
+                    position: absolute;
+                    opacity: 1;
+                    z-index: 2;
+                    @include img_textInShowActive;
+                    
+                }
+        }
+
+        .units{
+            transform: translateY(-50%);
+            position: relative;
+            z-index: 3;
+            .unit{
+                @include d-flex(center,center);
+                margin-bottom:20px;
+                .dot{
+                    width: 15px;
+                    height: 15px;
+                    margin: 0 5px;
+                    cursor: pointer;
+                    border-radius: 50%;
+                    background-color: white;
+                    transition: 0.3s ease;
+                }
+                .activeDot{
+                    transition: 0.3s ease;
+                    width:50px;
+                    height: 15px;
+                    margin: 0 5px ;
+                    cursor: pointer;
+                    border-radius: 20px;
+                    background-color: orangered;
+                }
+            }
+
+            .items{
+                @include d-flex(space-around,center);
+                padding: 0 20px;
+                .item{
+                    width: calc(95% / 6);
+                    border: 5px solid #999;
+                    transition: 0.5s ease;
+                    border-radius: 5px;
+                    img{
+                        width:100%;
+                        height: auto;
+                        display: block;
+                    }
+                }
+                .active{
+                    border-color: orangered;
+                }
+                
+            }
+        }
+    }
+}
